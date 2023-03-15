@@ -61,7 +61,7 @@ class SetFilter
         // то обезопасим запрос через sqlhelper
         $sqlHelper = Application::getConnection()->getSqlHelper();
         $searchLink = $link;
-        $arResult = Application::getConnection()->query("SELECT * FROM `" . $tableName . "` WHERE `" . $whereIs . "` = '" . $sqlHelper->forSql($searchLink) . "'", 1)->fetchRaw();
+        $arResult = Application::getConnection()->query("SELECT * FROM `" . $tableName . "` WHERE `" . $whereIs . "` = '" . $sqlHelper->forSql($searchLink) . "' AND `UF_ACTIVE` =  1", 1)->fetchRaw();
 
         return $arResult;
     }
