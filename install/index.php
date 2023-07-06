@@ -13,7 +13,7 @@ Class orwo_seosmartfilter extends CModule
     var $MODULE_VERSION_DATE;
     var $MODULE_GROUP_RIGHTS = "N";
 
-    function orwo_seosmartfilter(){
+    function __construct(){
         $arModuleVersion = array();
 
         $path = str_replace("\\", "/", __FILE__);
@@ -140,7 +140,10 @@ Class orwo_seosmartfilter extends CModule
                     "NAME"           => Loc::getMessage('iblock_name'),
                     "ACTIVE"         => "Y",
                     "IBLOCK_TYPE_ID" => $iblocktype,
-                    "SITE_ID"        => $arSiteId
+                    "SITE_ID"        => $arSiteId,
+                    "INDEX_SECTION"  => "N",
+                    "INDEX_ELEMENT"  => "N",
+                    "WORKFLOW"       => "N"
                 );
                 // set props
                 if ($iblockID = $rsIBlock->Add($arFields)) {
@@ -153,7 +156,7 @@ Class orwo_seosmartfilter extends CModule
                         "PROPERTY_TYPE" => "S",
                         "WITH_DESCRIPTION" => "Y",
                         "USER_TYPE" => 'selectPropType',
-                        "MULTIPLE" => Y,
+                        "MULTIPLE" => "Y",
                         "MULTIPLE_CNT" => 1,
                         "IBLOCK_ID" => $iblockID,
                     );
@@ -166,7 +169,7 @@ Class orwo_seosmartfilter extends CModule
                         "PROPERTY_TYPE" => "G",
                         "IBLOCK_ID" => $iblockID,
                         "LINK_IBLOCK_ID" => $catalogIblockID,
-                        "MULTIPLE" => Y,
+                        "MULTIPLE" => "Y",
                         "MULTIPLE_CNT" => 10,
                         "COL_COUNT" => 30,
                     );
@@ -235,7 +238,7 @@ Class orwo_seosmartfilter extends CModule
                         "ACTIVE" => "Y",
                         "PROPERTY_TYPE" => "S",
                         "WITH_DESCRIPTION" => "Y",
-                        "MULTIPLE" => Y,
+                        "MULTIPLE" => "Y",
                         "MULTIPLE_CNT" => 1,
                         "IBLOCK_ID" => $iblockID
                     );

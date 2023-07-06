@@ -5,7 +5,7 @@ use Bitrix\Main\Config\Option;
 
 class Sitemap extends \Orwo\SeoSmartFilter\SetFilter
 {
-    public function get($arSitemapsReq = false)
+    public static function get($arSitemapsReq = false)
     {
         $module_id = "orwo.seosmartfilter";
         Option::set($module_id, "sitemapGetStart", date("d.m.Y H:i:s"));
@@ -61,7 +61,7 @@ class Sitemap extends \Orwo\SeoSmartFilter\SetFilter
         return $result;
     }
 
-    public function addFilterLinksToSitemap(){
+    public static function addFilterLinksToSitemap(){
         if(!empty(parent::sitemapPath())){
             $jsonSitemapsGet = parent::sitemapPath();
             $sitemapGetStart = parent::sitemapGetStart();

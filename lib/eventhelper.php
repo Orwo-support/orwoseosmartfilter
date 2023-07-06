@@ -11,7 +11,7 @@ class EventHelper extends \Orwo\SeoSmartFilter\SetFilter
     /**
      * [panelButton добавление кнопки редактирвания на панель]
      */
-    public function panelButton()
+    public static function panelButton()
     {
         global $APPLICATION, $USER;
         if (!$USER->IsAdmin()) {
@@ -53,7 +53,7 @@ class EventHelper extends \Orwo\SeoSmartFilter\SetFilter
     }
 
 
-    public function onInitHelpTab($arFields)
+    public static function onInitHelpTab($arFields)
     {
         if ($arFields['IBLOCK']['ID'] == parent::moduleIblockID()) {
             return array(
@@ -64,12 +64,12 @@ class EventHelper extends \Orwo\SeoSmartFilter\SetFilter
         }
     }
 
-    public function getHelpTabs($arArgs)
+    public static function getHelpTabs($arArgs)
     {
         return [["DIV" => "elementsTab", "TAB" => "Настройки ссылок", 'TITLE' => "Список сгенерированных ссылок"], ["DIV" => "helpTab", "TAB" => "Документация"]];
     }
 
-    public function showHelpTab($divName, $arArgs, $bVarsFromForm)
+    public static function showHelpTab($divName, $arArgs, $bVarsFromForm)
     {
         $highloadID = \Orwo\SeoSmartFilter\SetFilter::moduleHighloadID();
         // Создаем сущность для работы с блоком:
@@ -172,7 +172,7 @@ class EventHelper extends \Orwo\SeoSmartFilter\SetFilter
     /**
      * [selectPropType Кастомное свойства выбора свойства]
      */
-    public function selectPropType()
+    public static function selectPropType()
     {
         return array(
             'PROPERTY_TYPE'           => 'S',
@@ -185,7 +185,7 @@ class EventHelper extends \Orwo\SeoSmartFilter\SetFilter
     /**
      * [selectPropTypeHtml Внешний вид кастомного свойства]
      */
-    public function selectPropTypeHtml($arProperty, $value, $strHTMLControlName)
+    public static function selectPropTypeHtml($arProperty, $value, $strHTMLControlName)
     {
         $html = '<div class="input_seo__prop" style="margin-bottom: .5rem;">';
         $html .= '<input id="seo-inp-val" class="adm-input seo-inp-val" list="seo-inp-val-select" placeholder="Код свойства"  name="' . $strHTMLControlName['VALUE'] . '" value="' . $value['VALUE'] . '"><datalist id="seo-inp-val-select">';
@@ -208,7 +208,7 @@ class EventHelper extends \Orwo\SeoSmartFilter\SetFilter
      * [iconSeoIblock замена иконки инфоблока в панели администратора]
      * "OnBuildGlobalMenu" - эвент
      */
-    public function iconSeoIblock(&$aGlobalMenu, &$aModuleMenu)
+    public static function iconSeoIblock(&$aGlobalMenu, &$aModuleMenu)
     {
         foreach ($aModuleMenu as $key => $value) {
             if ($value['items_id'] == 'menu_iblock_/orwo_seosmartfilter') {

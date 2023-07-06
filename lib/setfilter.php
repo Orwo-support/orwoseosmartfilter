@@ -9,31 +9,31 @@ use Bitrix\Main\HttpRequest;
 
 class SetFilter
 {
-    public function moduleIblockID()
+    public static function moduleIblockID()
     {
         return \Bitrix\Main\Config\Option::get("orwo.seosmartfilter", "moduleIblockID");
     }
-    public function catalogIblockID()
+    public static function catalogIblockID()
     {
         return \Bitrix\Main\Config\Option::get("orwo.seosmartfilter", "catalogIblockID");
     }
-    public function moduleHighloadID()
+    public static function moduleHighloadID()
     {
         return \Bitrix\Main\Config\Option::get("orwo.seosmartfilter", "highloadID");
     }
-    public function moduleHighloadTable()
+    public static function moduleHighloadTable()
     {
         return \Bitrix\Main\Config\Option::get("orwo.seosmartfilter", "highloadTableName");
     }
-    public function filterSef()
+    public static function filterSef()
     {
         return \Bitrix\Main\Config\Option::get("orwo.seosmartfilter", "filterSef");
     }
-    public function sitemapPath()
+    public static function sitemapPath()
     {
         return \Bitrix\Main\Config\Option::get("orwo.seosmartfilter", "filePath");
     }
-    public function sitemapGetStart()
+    public static function sitemapGetStart()
     {
         return \Bitrix\Main\Config\Option::get("orwo.seosmartfilter", "sitemapGetStart");
     }
@@ -49,7 +49,7 @@ class SetFilter
      * @param  [type] $oldLink [если true, то ищет по оригинальной ссылке]
      * @return [type]          [Массив с данными о ссылке]
      */
-    public function getLink($link = null, $oldLink = false)
+    public static function getLink($link = null, $oldLink = false)
     {
         $tableName = self::moduleHighloadTable();
         if ($oldLink == true) {
@@ -69,7 +69,7 @@ class SetFilter
      * [getLink Получить все ссылки]
      * @return [type]  [Массив с ссылками]
      */
-    public function getAllLinks()
+    public static function getAllLinks()
     {
         $tableName = self::moduleHighloadTable();
         $sqlHelper = Application::getConnection()->getSqlHelper();
@@ -77,7 +77,7 @@ class SetFilter
         return $arResult;
     }
 
-    public function delAllLinks($ID = null)
+    public static function delAllLinks($ID = null)
     {
         if ($ID == null) {
             return;
@@ -104,7 +104,7 @@ class SetFilter
      * [searchRewrite поиск текущей страницы для переброса на linkRewrite]
      * Вызывается подключением к событию OnPageStart (перед прологом)
      */
-    public function searchRewrite()
+    public static function searchRewrite()
     {
         // Создание объекта Uri из адреса текущей страницы:
         $request = Context::getCurrent()->getRequest();
@@ -158,7 +158,7 @@ class SetFilter
      * Получем getFilter паттерны
      * Получем нужные сео шаблоны и заменяем
      */
-    public function addMeta()
+    public static function addMeta()
     {
         $request = Context::getCurrent()->getRequest();
         $uri = new Uri($request->getRequestUri());
@@ -240,7 +240,7 @@ class SetFilter
      * Получает данные из глобальной переменной $seoFilter
      * прописанной в result_modifier умного фильтра
      */
-    public function getFilter()
+    public static function getFilter()
     {
         // Получаем данные из глбольной переменной
         global $seoFilter;
@@ -252,7 +252,7 @@ class SetFilter
             foreach ($arItem['VALUES'] as $kItem => $vItem) {
 
                 // Выбранные фильтры
-                if (isset($vItem['CHECKED']) || ($kItem == 'MIN' && isset($vItem['HTML_VALUE']) || $kItem == 'MAX' && isset($vItem['HTML_VALUE']))) {
+                if ((isset($vItem['CHECKED']) && !empty($vItem['CHECKED'])) || ($kItem == 'MIN' && (isset($vItem['HTML_VALUE']) && !empty($vItem['HTML_VALUE'])) || $kItem == 'MAX' && (isset($vItem['HTML_VALUE']) && !empty($vItem['HTML_VALUE'])))) {
                     $seoFilter['ACTIVE_FILTER']['VALUES'][$kItem]['SECTION_NAME'] = $seoFilter['SECTION_TITLE'];
                     $seoFilter['ACTIVE_FILTER']['VALUES'][$kItem]['FILTER_VALUE'] = $vItem['VALUE'];
                     $seoFilter['ACTIVE_FILTER']['RESULT'][$kItem] = $vItem;
@@ -294,7 +294,7 @@ class SetFilter
      * @param  array  $arPattern [Массив с ключ = паттерн, значение = значение паттерна]
      * @return string            [Возрващается строка с замененными значениями]
      */
-    public function getPattern($string = '', $arPattern = '')
+    public static function getPattern($string = '', $arPattern = '')
     {
         // Модификаторы:
         preg_match_all('/\{(CAPITALIZE|LOWER|UPPER)(?:_)([\w\|\d]+)\}/', $string, $match, PREG_SET_ORDER);

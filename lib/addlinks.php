@@ -8,7 +8,7 @@ class AddLinks extends \Orwo\SeoSmartFilter\SetFilter
      * [beforetUpdateElement создаем ссылки на стадии сохраниения сео элемента]
      * @param  [type] $arFields [Данные пришедшие с события]
      */
-    public function beforetUpdateElement($arFields = [])
+    public static function beforetUpdateElement($arFields = [])
     {
         // Подключим нужные нам модули для работы
         \Bitrix\Main\Loader::includeModule("iblock");
@@ -315,7 +315,7 @@ class AddLinks extends \Orwo\SeoSmartFilter\SetFilter
      * [setHighloadLinks Запись ссылок в highloadblock]
      * @param array $arLink [description]
      */
-    public function setHighloadLinks($arLink = [], $seoElemenID = '')
+    public static function setHighloadLinks($arLink = [], $seoElemenID = '')
     {
         // Подключаем класс Highload блока
         $hldata   = \Bitrix\Highloadblock\HighloadBlockTable::getById(parent::moduleHighloadID())->fetch();
@@ -387,7 +387,7 @@ class AddLinks extends \Orwo\SeoSmartFilter\SetFilter
     /**
      * [encodeUrl кодирование строки url по правилам bitrix]
      */
-    public function encodeUrl($string)
+    public static function encodeUrl($string)
     {
         $replace = ["/", ',', ' ', '.', '"'];
         $replacement = ["-", '%2C', '%20', '%2E', '%22'];
@@ -400,7 +400,7 @@ class AddLinks extends \Orwo\SeoSmartFilter\SetFilter
      * @param  $arFields [array][Общий массив для перебора вариантов]
      * @return [array][Массив с комбинациями]
      */
-    public function uniqLinks($arFields)
+    public static function uniqLinks($arFields)
     {
         $count = count($arFields);
         for ($s = 0; $s < $count; $s++) {

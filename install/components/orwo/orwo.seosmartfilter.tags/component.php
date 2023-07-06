@@ -23,7 +23,7 @@ if (class_exists('\Orwo\SeoSmartFilter\SetFilter')) {
             }
         }
     }
-    if(isset($arParams['SECTION_ID'])){
+    if(isset($arParams['SECTION_ID']) && $arParams['SECTION_ID'] != 0){
         $res = CIBlockSection::GetByID($arParams['SECTION_ID']);
     }else{
         if(isset($arParams['SECTION_CODE']) && isset($arParams['IBLOCK_ID']))
