@@ -258,7 +258,7 @@ class SetFilter
                     $seoFilter['ACTIVE_FILTER']['RESULT'][$kItem] = $vItem;
                 }
                 // Ползунки значения в HTML_VALUE
-                if ($kItem == 'MIN' && isset($vItem['HTML_VALUE']) || $kItem == 'MAX' && isset($vItem['HTML_VALUE'])) {
+                if (($kItem == 'MIN' && isset($vItem['HTML_VALUE']) && !empty($vItem['HTML_VALUE'])) || ($kItem == 'MAX' && isset($vItem['HTML_VALUE']) && !empty($vItem['HTML_VALUE']))) {
                     $seoFilter['ACTIVE_FILTER']['VALUES'][$kItem]['FILTER_VALUE'] = $vItem['HTML_VALUE'];
                     // Для ползунокв 0-0.999
                     if ($vItem['HTML_VALUE'] == 0) {
